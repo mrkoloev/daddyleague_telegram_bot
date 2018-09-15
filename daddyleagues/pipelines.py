@@ -61,8 +61,7 @@ select week from games where week = ? and team1_id = ? and team2_id = ?
             new_item = True
         if new_item:
             try:
-                r = requests.post("https://api.telegram.org/\
-bot564873482:AAFhH9iE9Fyf1th-z-DSxznJBBgRSynPmvA/sendMessage",
+                r = requests.post("https://api.telegram.org/bot564873482:AAFhH9iE9Fyf1th-z-DSxznJBBgRSynPmvA/sendMessage",
                                   data={
                                       u"chat_id": self.chat_id,
                                       u"text": self.template.format(
@@ -73,19 +72,18 @@ bot564873482:AAFhH9iE9Fyf1th-z-DSxznJBBgRSynPmvA/sendMessage",
                                           team2[1]),
                                       u"parse_mode": u"Markdown"})
                 js = r.json()
-                if u"ok" in js and js["ok"]:
-                    self.conn.commit()
-                    requests.post("https://api.telegram.org/\
-bot564873482:AAFhH9iE9Fyf1th-z-DSxznJBBgRSynPmvA/sendMessage",
-                                  data={
-                                      u"chat_id": -273770462,
-                                      u"text": self.template.format(
-                                          team1[1],
-                                          item['score1'],
-                                          item['vs'],
-                                          item['score2'],
-                                          team2[1]),
-                                      u"parse_mode": u"Markdown"})
+                #if u"ok" in js and js["ok"]:
+                #    self.conn.commit()
+                #    requests.post("https://api.telegram.org/bot564873482:AAFhH9iE9Fyf1th-z-DSxznJBBgRSynPmvA/sendMessage",
+                #                  data={
+                #                      u"chat_id": -273770462,
+                #                      u"text": self.template.format(
+                #                          team1[1],
+                #                          item['score1'],
+                #                          item['vs'],
+                #                          item['score2'],
+                #                          team2[1]),
+                #                      u"parse_mode": u"Markdown"})
             except:
                 self.conn.rollback()
         return item
