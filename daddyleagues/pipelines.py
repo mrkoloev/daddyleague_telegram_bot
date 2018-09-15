@@ -76,7 +76,7 @@ select week from games where week = ? and team1_id = ? and team2_id = ?
                 #    self.conn.commit()
                 #    requests.post("https://api.telegram.org/bot564873482:AAFhH9iE9Fyf1th-z-DSxznJBBgRSynPmvA/sendMessage",
                 #                  data={
-                #                      u"chat_id": -273770462,
+                #                      u"chat_id": -1001120201652,
                 #                      u"text": self.template.format(
                 #                          team1[1],
                 #                          item['score1'],
