@@ -10,13 +10,16 @@ class SchedulesSpider(scrapy.Spider):
     def start_requests(self):
         # import pdb; pdb.set_trace()
         self.conn = sqlite3.connect('daddyleagues.db')
-        url = 'http://www.daddyleagues.com/uflrus/schedules'
+        url = 'http://old.daddyleagues.com/uflrus/schedules'
+        #url = 'http://www.daddyleagues.com/uflrus/schedules'
 
         c = self.conn.cursor()
-        last_week = c.execute("""
-select week from week where ended = 0 order by id limit 1
-        """).fetchone()
+        #debug
+        #c.execute('drop table week')
+        c.execute('CREATE TABLE IF NOT EXISTS week (id, week, ended)')
+        last_week = c.execute("""select week from week where ended = 0 order by id limit 1""").fetchone()
         # Первый запуск
+
         if last_week is None:
             return [scrapy.Request(url=url, callback=self.parse)]
         else:
@@ -26,17 +29,11 @@ select week from week where ended = 0 order by id limit 1
                                        callback=self.parse_week)]
 
     def parse(self, response):
+        #weeks = [(1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0), (7, 0), (8, 0), (9, 0), (10, 0), (11, 0), (12, 0), (13, 0), (14, 0), (15, 0), (16, 0), (17, 0), (18, 0), (19, 0), (21, 0)]
         weeks = [(int(w), 0)
                  for w
-                    #in response.css('div.weekSelector li a::attr(rel)').extract()]
-                    in response.css('.tab-pane.active.show li a::attr(rel)').extract()]
-                    #pills-season
-            
-            #debug 
-            print response.css('.tab-pane.active.show li a::attr(rel)').extract()]
-            print '################'
-            print response
-            
+                 in response.css('div.weekSelector li a::attr(rel)').extract()]
+
         c = self.conn.cursor()
         c.executemany('insert into week values (null, ?, ?)', weeks)
         self.conn.commit()
@@ -50,6 +47,9 @@ select week from week where ended = 0 order by id limit 1
         week = response.meta['week']
         li = response.css('li')
         c = self.conn.cursor()
+        #debug
+        #c.execute('drop table games')
+        c.execute('CREATE TABLE IF NOT EXISTS games (week INTEGER, team1_id, team2_id, vs, score1, score2)')
         count = c.execute('select count(*) from games where week = ?',
                           (week,)).fetchone()
         if count[0] == len(li):

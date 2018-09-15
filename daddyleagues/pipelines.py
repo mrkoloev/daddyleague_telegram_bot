@@ -30,6 +30,8 @@ class DaddyleaguesPipeline(object):
         if len(item) == 0:
             raise DropItem()
         c = self.conn.cursor()
+        #c.execute('drop table  team')
+        c.execute('CREATE TABLE IF NOT EXISTS  team (id, name)')
         new_item = False
         team1 = c.execute('select id, name from team where name = ?',
                           (item['team1'],)).fetchone()
@@ -76,7 +78,7 @@ bot356404528:AAHg-TCSPkE9yLXAt0W3QwGhDhAc9fb0KSc/sendMessage",
                     requests.post("https://api.telegram.org/\
 bot356404528:AAHg-TCSPkE9yLXAt0W3QwGhDhAc9fb0KSc/sendMessage",
                                   data={
-                                      u"chat_id": XXXXXXXXXXXXXX,
+                                      u"chat_id": -209460624,
                                       u"text": self.template.format(
                                           team1[1],
                                           item['score1'],

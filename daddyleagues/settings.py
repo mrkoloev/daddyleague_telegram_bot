@@ -92,6 +92,7 @@ ITEM_PIPELINES = {
 # Настройки для телеграм
 TELEGRAM = {
     # 'chat_id': -209460624,
-    'chat_id': XXXXXXXXXXXXXX,
+    # 'chat_id': XXXXXXXXXXXXXX,
+    'chat_id': -209460624,
     'template': u"_{}_  *{}*  [vs]({})  *{}*  _{}_"
 }
