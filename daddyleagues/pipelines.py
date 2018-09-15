@@ -61,7 +61,7 @@ select week from games where week = ? and team1_id = ? and team2_id = ?
             new_item = True
         if new_item:
             try:
-                r = requests.post("https://api.telegram.org/bot564873482:AAFhH9iE9Fyf1th-z-DSxznJBBgRSynPmvA/sendMessage",
+                r = requests.post("https://api.telegram.org/<key>/sendMessage",
                                   data={
                                       u"chat_id": self.chat_id,
                                       u"text": self.template.format(
@@ -74,7 +74,7 @@ select week from games where week = ? and team1_id = ? and team2_id = ?
                 js = r.json()
                 #if u"ok" in js and js["ok"]:
                 #    self.conn.commit()
-                #    requests.post("https://api.telegram.org/bot564873482:AAFhH9iE9Fyf1th-z-DSxznJBBgRSynPmvA/sendMessage",
+                #    requests.post("https://api.telegram.org/<>/sendMessage",
                 #                  data={
                 #                      u"chat_id": -1001120201652,
                 #                      u"text": self.template.format(
