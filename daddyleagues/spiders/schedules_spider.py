@@ -28,7 +28,9 @@ select week from week where ended = 0 order by id limit 1
     def parse(self, response):
         weeks = [(int(w), 0)
                  for w
-                 in response.css('div.weekSelector li a::attr(rel)').extract()]
+                    #in response.css('div.weekSelector li a::attr(rel)').extract()]
+                    in response.css('div.pills-tabContent li a::attr(rel)').extract()]
+                    #pills-season
         c = self.conn.cursor()
         c.executemany('insert into week values (null, ?, ?)', weeks)
         self.conn.commit()
