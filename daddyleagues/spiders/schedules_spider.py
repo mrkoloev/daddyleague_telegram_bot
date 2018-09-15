@@ -29,8 +29,14 @@ select week from week where ended = 0 order by id limit 1
         weeks = [(int(w), 0)
                  for w
                     #in response.css('div.weekSelector li a::attr(rel)').extract()]
-                    in response.css('div.pills-tabContent li a::attr(rel)').extract()]
+                    in response.css('.tab-pane.active.show li a::attr(rel)').extract()]
                     #pills-season
+            
+            #debug 
+            print response.css('.tab-pane.active.show li a::attr(rel)').extract()]
+            print '################'
+            print response
+            
         c = self.conn.cursor()
         c.executemany('insert into week values (null, ?, ?)', weeks)
         self.conn.commit()
