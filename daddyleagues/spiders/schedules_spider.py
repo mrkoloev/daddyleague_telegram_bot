@@ -52,7 +52,7 @@ class SchedulesSpider(scrapy.Spider):
         c.execute('CREATE TABLE IF NOT EXISTS games (week INTEGER, team1_id, team2_id, vs, score1, score2)')
         count = c.execute('select count(*) from games where week = ?',
                           (week,)).fetchone()
-        if count[0] == len(li):
+        if count[0] == len(li)-1:
             # import pdb; pdb.set_trace()
             c.execute('update week set ended = 1 where week = ?', (week,))
             self.conn.commit()
