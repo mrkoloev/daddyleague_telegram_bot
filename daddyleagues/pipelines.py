@@ -42,7 +42,7 @@ class DaddyleaguesPipeline(object):
 select week from games where week = ? and team1_id = ? and team2_id = ?
             """, (item['week'], team1[0], team2[0])).fetchone()
             if persist is None:
-                c.execute('insert into games values (?, ?, ?, ?, ?, ?)',
+                c.execute('insert into games values (?, ?, ?, ?, ?, ?, false)',
                           (item['week'], team1[0], item['score1'],
                            item['score2'], team2[0], item['vs']))
                 new_item = True
@@ -55,7 +55,7 @@ select week from games where week = ? and team1_id = ? and team2_id = ?
                 c.execute('insert into team values (null, ?)', (item['team2'],))
                 team2 = c.execute('select id, name from team where name = ?',
                                   (item['team2'],)).fetchone()
-            c.execute('insert into games values (?, ?, ?, ?, ?, ?)',
+            c.execute('insert into games values (?, ?, ?, ?, ?, ?, false)',
                       (item['week'], team1[0], item['score1'],
                        item['score2'], team2[0], item['vs']))
             new_item = True
@@ -72,8 +72,10 @@ select week from games where week = ? and team1_id = ? and team2_id = ?
                                           team2[1]),
                                       u"parse_mode": u"Markdown"})
                 js = r.json()
-                #if u"ok" in js and js["ok"]:
-                #    self.conn.commit()
+                if u"ok" in js and js["ok"]:
+                    self.conn.commit()
+                    c.execute('update games set sended=true where week=? and team1_id=? and team2_id=?',
+                              (item['week'], team1[0], team2[0]))
                 #    requests.post("https://api.telegram.org/<>/sendMessage",
                 #                  data={
                 #                      u"chat_id": -1001120201652,
