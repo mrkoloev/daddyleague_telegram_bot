@@ -39,7 +39,7 @@ class DaddyleaguesPipeline(object):
                           (item['team2'],)).fetchone()
         if team1 is not None and team2 is not None:
             persist = c.execute("""
-select week from games where week = ? and team1_id = ? and team2_id = ? and sended != ?
+select week from games where week = ? and team1_id = ? and team2_id = ? and sended = ?
             """, (item['week'], team1[1], team2[1], 1)).fetchone()
             if persist is None:
                 c.execute('insert into games values (?, ?, ?, ?, ?, ?, ?)',
