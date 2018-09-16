@@ -40,11 +40,11 @@ class DaddyleaguesPipeline(object):
         if team1 is not None and team2 is not None:
             persist = c.execute("""
 select week from games where week = ? and team1_id = ? and team2_id = ? and sended != ?
-            """, (item['week'], team1[0], team2[0], 1)).fetchone()
+            """, (item['week'], team1[1], team2[1], 1)).fetchone()
             if persist is None:
-                c.execute('insert into games values (?, ?, ?, ?, ?, ?)',
-                          (item['week'], team1[0], item['score1'],
-                           item['score2'], team2[0], item['vs']))
+                c.execute('insert into games values (?, ?, ?, ?, ?, ?, ?)',
+                          (item['week'], team1[1], item['score1'],
+                           item['score2'], team2[1], item['vs'], 0))
                 new_item = True
         else:
             if team1 is None:
@@ -55,9 +55,9 @@ select week from games where week = ? and team1_id = ? and team2_id = ? and send
                 c.execute('insert into team values (null, ?)', (item['team2'],))
                 team2 = c.execute('select id, name from team where name = ?',
                                   (item['team2'],)).fetchone()
-            c.execute('insert into games values (?, ?, ?, ?, ?, ?)',
-                      (item['week'], team1[0], item['score1'],
-                       item['score2'], team2[0], item['vs']))
+            c.execute('insert into games values (?, ?, ?, ?, ?, ?, ?)',
+                      (item['week'], team1[1], item['score1'],
+                       item['score2'], team2[1], item['vs'], 0))
             new_item = True
         if new_item:
             try:
@@ -73,9 +73,9 @@ select week from games where week = ? and team1_id = ? and team2_id = ? and send
                                       u"parse_mode": u"Markdown"})
                 js = r.json()
                 if u"ok" in js and js["ok"]:
-                    self.conn.commit()
                     c.execute('update games set sended = 1 where week = ? and team1_id = ? and team2_id = ?',
-                              (item['week'], team1[0], team2[0]))
+                              (item['week'], team1[1], team2[1]))
+                    self.conn.commit()
 
                     #    requests.post("https://api.telegram.org/<>/sendMessage",
                 #                  data={

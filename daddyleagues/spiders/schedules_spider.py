@@ -48,8 +48,8 @@ class SchedulesSpider(scrapy.Spider):
         li = response.css('li')
         c = self.conn.cursor()
         #debug
-        #c.execute('drop table games')
-        c.execute('CREATE TABLE IF NOT EXISTS games (week INTEGER, team1_id, team2_id, vs, score1, score2, sended)')
+        c.execute('drop table games')
+        c.execute('CREATE TABLE IF NOT EXISTS games (week INTEGER, team1_id, score1, score2, team2_id, vs, sended)')
         count = c.execute('select count(*) from games where week = ?',
                           (week,)).fetchone()
         if count[0] == len(li)-1:
