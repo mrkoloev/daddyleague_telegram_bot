@@ -39,10 +39,10 @@ class DaddyleaguesPipeline(object):
                           (item['team2'],)).fetchone()
         if team1 is not None and team2 is not None:
             persist = c.execute("""
-select week from games where week = ? and team1_id = ? and team2_id = ?
+select week from games where week = ? and team1_id = ? and team2_id = ? and sended != true
             """, (item['week'], team1[0], team2[0])).fetchone()
             if persist is None:
-                c.execute('insert into games values (?, ?, ?, ?, ?, ?, sended=false)',
+                c.execute('insert into games values (?, ?, ?, ?, ?, ?)',
                           (item['week'], team1[0], item['score1'],
                            item['score2'], team2[0], item['vs']))
                 new_item = True
@@ -55,7 +55,7 @@ select week from games where week = ? and team1_id = ? and team2_id = ?
                 c.execute('insert into team values (null, ?)', (item['team2'],))
                 team2 = c.execute('select id, name from team where name = ?',
                                   (item['team2'],)).fetchone()
-            c.execute('insert into games values (?, ?, ?, ?, ?, ?, sended=false)',
+            c.execute('insert into games values (?, ?, ?, ?, ?, ?)',
                       (item['week'], team1[0], item['score1'],
                        item['score2'], team2[0], item['vs']))
             new_item = True
