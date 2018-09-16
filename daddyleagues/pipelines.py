@@ -39,8 +39,8 @@ class DaddyleaguesPipeline(object):
                           (item['team2'],)).fetchone()
         if team1 is not None and team2 is not None:
             persist = c.execute("""
-select week from games where week = ? and team1_id = ? and team2_id = ? and sended != true
-            """, (item['week'], team1[0], team2[0])).fetchone()
+select week from games where week = ? and team1_id = ? and team2_id = ? and sended != ?
+            """, (item['week'], team1[0], team2[0], 1)).fetchone()
             if persist is None:
                 c.execute('insert into games values (?, ?, ?, ?, ?, ?)',
                           (item['week'], team1[0], item['score1'],
@@ -74,9 +74,10 @@ select week from games where week = ? and team1_id = ? and team2_id = ? and send
                 js = r.json()
                 if u"ok" in js and js["ok"]:
                     self.conn.commit()
-                    c.execute('update games set sended=true where week=? and team1_id=? and team2_id=?',
+                    c.execute('update games set sended = 1 where week = ? and team1_id = ? and team2_id = ?',
                               (item['week'], team1[0], team2[0]))
-                #    requests.post("https://api.telegram.org/<>/sendMessage",
+
+                    #    requests.post("https://api.telegram.org/<>/sendMessage",
                 #                  data={
                 #                      u"chat_id": -1001120201652,
                 #                      u"text": self.template.format(
