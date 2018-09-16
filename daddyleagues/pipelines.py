@@ -46,6 +46,8 @@ select week from games where week = ? and team1_id = ? and team2_id = ? and send
                           (item['week'], team1[1], item['score1'],
                            item['score2'], team2[1], item['vs'], 0))
                 new_item = True
+            else:
+                new_item = False
         else:
             if team1 is None:
                 c.execute('insert into team values (null, ?)', (item['team1'],))
