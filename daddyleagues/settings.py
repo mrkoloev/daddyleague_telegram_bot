@@ -94,5 +94,5 @@ TELEGRAM = {
      'chat_id': -273770462,
     # 'chat_id': XXXXXXXXXXXXXX,
     #'chat_id': -1001120201652,
-    'template': u"_{}_  *{}*  [vs]({})  *{}*  _{}_"
+    'template': u'*Week* *{}* \n_{}_  *{}*  [vs]({})  *{}*  _{}_'
 }

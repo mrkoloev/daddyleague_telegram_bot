@@ -75,6 +75,7 @@ select week from week where ended = 0 order by id limit 1
                 score1 = int(scores[0].strip())
                 score2 = int(scores[1].strip())
                 vs = s.css('a::attr(href)').extract()[0]
+                vs = vs.replace("old", "www", 3)
                 if score1 != 0 or score2 != 0:
                     yield {
                         'week': week,

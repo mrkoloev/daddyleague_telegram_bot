@@ -65,6 +65,7 @@ select week from games where week = ? and team1_id = ? and team2_id = ? and send
                                   data={
                                       u"chat_id": self.chat_id,
                                       u"text": self.template.format(
+                                          item['week']+1,
                                           team1[1],
                                           item['score1'],
                                           item['vs'],
