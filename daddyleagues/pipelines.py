@@ -6,8 +6,10 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import sqlite3
 import requests
+import imgkit
 from scrapy.exceptions import NotConfigured
 from scrapy.exceptions import DropItem
+
 
 
 class DaddyleaguesPipeline(object):
@@ -46,8 +48,7 @@ select week from games where week = ? and team1_id = ? and team2_id = ? and send
                           (item['week'], team1[1], item['score1'],
                            item['score2'], team2[1], item['vs'], 0))
                 new_item = True
-            else:
-                new_item = False
+
         else:
             if team1 is None:
                 c.execute('insert into team values (null, ?)', (item['team1'],))
@@ -62,7 +63,18 @@ select week from games where week = ? and team1_id = ? and team2_id = ? and send
                        item['score2'], team2[1], item['vs'], 0))
             new_item = True
         if new_item:
+            config = imgkit.config(wkhtmltoimage='/usr/local/bin/wkhtmltoimage')
+            options = {
+                'crop-x': 3450,
+                'crop-y': 200,
+                'quality': 100,
+                'height': 600,
+                'width': 4400
+            }
+            imgkit.from_url(item['vs'], 'gameRecap.png', options=options, config=config)
+
             try:
+
                 r = requests.post("https://api.telegram.org/<key>/sendMessage",
                                   data={
                                       u"chat_id": self.chat_id,
@@ -74,8 +86,13 @@ select week from games where week = ? and team1_id = ? and team2_id = ? and send
                                           item['score2'],
                                           team2[1]),
                                       u"parse_mode": u"Markdown"})
+
                 js = r.json()
                 if u"ok" in js and js["ok"]:
+                    url = "https://api.telegram.org/<key>/sendPhoto";
+                    files = {'photo': open('gameRecap.png', 'rb')}
+                    data = {'chat_id' : self.chat_id}
+                    requests.post(url, files=files, data=data)
                     c.execute('update games set sended = 1 where week = ? and team1_id = ? and team2_id = ?',
                               (item['week'], team1[1], team2[1]))
                     self.conn.commit()
