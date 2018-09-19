@@ -64,6 +64,8 @@ select week from games where week = ? and team1_id = ? and team2_id = ? and send
             new_item = True
         if new_item:
             config = imgkit.config(wkhtmltoimage='/usr/local/bin/wkhtmltoimage')
+            #config = imgkit.config(wkhtmltoimage='/usr/bin/wkhtmltoimage')
+
             options = {
                 'crop-x': 3450,
                 'crop-y': 200,
