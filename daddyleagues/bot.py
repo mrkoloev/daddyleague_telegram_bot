@@ -18,14 +18,14 @@ import imgkit
 import requests
 import sqlite3
 
-key = ''
+key = '564873482:AAFhH9iE9Fyf1th-z-DSxznJBBgRSynPmvA'
 #273770462
 
 app = telebot.TeleBot(key)
 
 def getWeek(cmd, url, options):
-    config = imgkit.config(wkhtmltoimage='/usr/local/bin/wkhtmltoimage')
-    #config = imgkit.config(wkhtmltoimage='/usr/bin/wkhtmltoimage')
+    #config = imgkit.config(wkhtmltoimage='/usr/local/bin/wkhtmltoimage')
+    config = imgkit.config(wkhtmltoimage='/usr/bin/wkhtmltoimage')
 
 
     imgkit.from_url(url, cmd+'.png', options=options, config=config)
@@ -64,16 +64,17 @@ def week_num(message, cmd):
 def team_owner(message, cmd):
     chat_dest = message['chat']['id']
 
-    item = c.execute("select owner from owners where team like '"+cmd+"'").fetchone()
+    item = c.execute(u"select owner from owners where team like '"+cmd+"'").fetchone()
     msg = "For " + cmd + " " + str(item)
-    app.send_message(chat_dest, msg)
+    app.send_message(chat_dest, msg.encode('utf-8'))
 
-@app.route('/setOwner ?(.*) ?(.*)')
+@app.route('/setTeam ?([A-z]+) ?(.*)')
 def team_owner(message, team, owner):
     chat_dest = message['chat']['id']
 
-    c.execute("update owner from owners where team = '" + team + "'")
-    msg = "For " + team + " new owner is " + str(owner)
+    c.execute(u'update owners set owner=? where team =?', (owner.encode('utf-8'),team))
+    msg = "For " + team + " new owner is " + owner
+    conn.commit()
     app.send_message(chat_dest, msg)
 
 if __name__ == '__main__':

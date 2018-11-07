@@ -63,8 +63,8 @@ select week from games where week = ? and team1_id = ? and team2_id = ? and send
                        item['score2'], team2[1], item['vs'], 0))
             new_item = True
         if new_item:
-            config = imgkit.config(wkhtmltoimage='/usr/local/bin/wkhtmltoimage')
-            #config = imgkit.config(wkhtmltoimage='/usr/bin/wkhtmltoimage')
+            #config = imgkit.config(wkhtmltoimage='/usr/local/bin/wkhtmltoimage')
+            config = imgkit.config(wkhtmltoimage='/usr/bin/wkhtmltoimage')
 
             options = {
                 'crop-x': 3450,
@@ -77,7 +77,7 @@ select week from games where week = ? and team1_id = ? and team2_id = ? and send
 
             try:
 
-                r = requests.post("https://api.telegram.org/<key>/sendMessage",
+                r = requests.post("https://api.telegram.org/bot564873482:AAFhH9iE9Fyf1th-z-DSxznJBBgRSynPmvA/sendMessage",
                                   data={
                                       u"chat_id": self.chat_id,
                                       u"text": self.template.format(
@@ -91,7 +91,7 @@ select week from games where week = ? and team1_id = ? and team2_id = ? and send
 
                 js = r.json()
                 if u"ok" in js and js["ok"]:
-                    url = "https://api.telegram.org/<key>/sendPhoto";
+                    url = "https://api.telegram.org/bot564873482:AAFhH9iE9Fyf1th-z-DSxznJBBgRSynPmvA/sendPhoto";
                     files = {'photo': open('gameRecap.png', 'rb')}
                     data = {'chat_id' : self.chat_id}
                     requests.post(url, files=files, data=data)
