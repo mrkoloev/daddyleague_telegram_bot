@@ -18,7 +18,7 @@ import imgkit
 import requests
 import sqlite3
 
-key = '564873482:AAFhH9iE9Fyf1th-z-DSxznJBBgRSynPmvA'
+key = ''
 #273770462
 
 app = telebot.TeleBot(key)
@@ -59,6 +59,31 @@ def week_num(message, cmd):
 
 
     sendPick('week' + cmd, chat_dest)
+
+@app.route('/res')
+def res(message):
+    chat_dest = message['chat']['id']
+    url = 'http://www.daddyleagues.com/uflrus/gamerecap/548877212'
+    msg = "Starting: result 1.312"
+    app.send_message(chat_dest, msg)
+    options = {
+      'crop-x': 450,
+      'crop-y': 200,
+      'quality': 100,
+      'height': 500,
+      'width': 2400,
+      'javascript-delay': 1000,
+        'run-script' : [
+            "javascript:\$(function() { document.querySelector('.nav.nav-tabs > li:nth-child(2) > a').dispatchEvent(new  MouseEvent('click', {bubbles: true,cancelable: true,view: window}))})"
+        ]
+
+
+}
+
+
+
+    sendPick('res', chat_dest)
+
 
 @app.route('/who ?(.*)')
 def team_owner(message, cmd):

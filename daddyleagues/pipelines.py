@@ -75,9 +75,169 @@ select week from games where week = ? and team1_id = ? and team2_id = ? and send
             }
             imgkit.from_url(item['vs'], 'gameRecap.png', options=options, config=config)
 
+            js = """javascript:
+        document.getElementById('gamesummary').className = 'tab-pane'; 
+        document.getElementById('teamstats').className = 'tab-pane active';
+
+        var x = document.getElementsByClassName ('card');
+        x[5].style.setProperty('width', '245px');
+        x[5].style.setProperty('height', '100px');
+        x[5].style.setProperty('left', '45px');
+        x[5].parentElement.style.setProperty('flex', '0 0 10%');
+
+
+        x[6].style.setProperty('width', '245px');
+        x[6].style.setProperty('height', '100px');
+        x[6].style.setProperty('left', '-275px');
+        x[6].parentElement.style.setProperty('flex', '0 0 10%');
+
+        
+        var x = document.getElementsByClassName ('ml-auto col wd-xxs text-right')[4];
+        x.style.setProperty('position','absolute');
+        x.style.setProperty('left', '120px');
+        x.style.setProperty('margin-top', '-30px'); x.firstElementChild.style.setProperty('width', '50px');  x.firstElementChild.style.setProperty('font-size', '30px');
+        var d = document.getElementsByClassName ('w-100')[4];
+        d.style.setProperty('display','none');
+
+        var x = document.getElementsByClassName ('ml-auto col wd-xxs text-right')[5];
+        x.style.setProperty('position','absolute');
+        x.style.setProperty('left', '350px');
+        x.style.setProperty('margin-top', '-30px'); x.firstElementChild.style.setProperty('width', '50px');  x.firstElementChild.style.setProperty('font-size', '30px');
+        var d = document.getElementsByClassName ('w-100')[5];
+        d.style.setProperty('display','none');
+
+
+        var x = document.getElementsByClassName ('ml-auto col wd-xxs text-right')[6];
+        x.style.setProperty('position','absolute');
+        x.style.setProperty('left', '120px');
+        x.style.setProperty('margin-top', '-30px'); x.firstElementChild.style.setProperty('width', '50px');  x.firstElementChild.style.setProperty('font-size', '30px');
+        var d = document.getElementsByClassName ('w-100')[6];
+        d.style.setProperty('display','none');
+
+
+        var x = document.getElementsByClassName ('ml-auto col wd-xxs text-right')[7];
+        x.style.setProperty('position','absolute');
+        x.style.setProperty('left', '350px');
+        x.style.setProperty('margin-top', '-30px'); x.firstElementChild.style.setProperty('width', '50px');  x.firstElementChild.style.setProperty('font-size', '30px');
+        var d = document.getElementsByClassName ('w-100')[7];
+        d.style.setProperty('display','none');
+
+
+        var x = document.getElementsByClassName ('ml-auto col wd-xxs text-right')[8];
+        x.style.setProperty('position','absolute');
+        x.style.setProperty('left', '120px');
+        x.style.setProperty('margin-top', '-30px'); x.firstElementChild.style.setProperty('width', '50px');  x.firstElementChild.style.setProperty('font-size', '30px');
+        var d = document.getElementsByClassName ('w-100')[8];
+        d.style.setProperty('display','none');
+
+
+        var x = document.getElementsByClassName ('ml-auto col wd-xxs text-right')[9];
+        x.style.setProperty('position','absolute');
+        x.style.setProperty('left', '350px');
+        x.style.setProperty('margin-top', '-30px'); x.firstElementChild.style.setProperty('width', '50px');  x.firstElementChild.style.setProperty('font-size', '30px');
+        var d = document.getElementsByClassName ('w-100')[9];
+        d.style.setProperty('display','none');
+
+
+        var x = document.getElementsByClassName ('ml-auto col wd-xxs text-right')[10];
+        x.style.setProperty('position','absolute');
+        x.style.setProperty('left', '120px');
+        x.style.setProperty('margin-top', '-30px'); x.firstElementChild.style.setProperty('width', '50px');  x.firstElementChild.style.setProperty('font-size', '30px');
+        var d = document.getElementsByClassName ('w-100')[10];
+        d.style.setProperty('display','none');
+
+
+        var x = document.getElementsByClassName ('ml-auto col wd-xxs text-right')[11];
+        x.style.setProperty('position','absolute');
+        x.style.setProperty('left', '350px');
+        x.style.setProperty('margin-top', '-30px'); x.firstElementChild.style.setProperty('width', '50px');  x.firstElementChild.style.setProperty('font-size', '30px');
+        var d = document.getElementsByClassName ('w-100')[11];
+        d.style.setProperty('display','none');
+
+
+        var x = document.getElementsByClassName ('ml-auto col wd-xxs text-right')[12];
+        x.style.setProperty('position','absolute');
+        x.style.setProperty('left', '120px');
+        x.style.setProperty('margin-top', '-30px'); x.firstElementChild.style.setProperty('width', '50px');  x.firstElementChild.style.setProperty('font-size', '30px');
+        var d = document.getElementsByClassName ('w-100')[12];
+        d.style.setProperty('display','none');
+
+
+        var x = document.getElementsByClassName ('ml-auto col wd-xxs text-right')[13];
+        x.style.setProperty('position','absolute');
+        x.style.setProperty('left', '350px');
+        x.style.setProperty('margin-top', '-30px'); x.firstElementChild.style.setProperty('width', '50px');  x.firstElementChild.style.setProperty('font-size', '30px');
+        var d = document.getElementsByClassName ('w-100')[13];
+        d.style.setProperty('display','none');
+
+
+        var x = document.getElementsByClassName ('ml-auto col wd-xxs text-right')[14];
+        x.style.setProperty('position','absolute');
+        x.style.setProperty('left', '120px');
+        x.style.setProperty('margin-top', '-30px'); x.firstElementChild.style.setProperty('width', '50px');  x.firstElementChild.style.setProperty('font-size', '30px');
+        var d = document.getElementsByClassName ('w-100')[14];
+        d.style.setProperty('display','none');
+
+
+        var x = document.getElementsByClassName ('ml-auto col wd-xxs text-right')[15];
+        x.style.setProperty('position','absolute');
+        x.style.setProperty('left', '350px');
+        x.style.setProperty('margin-top', '-30px'); x.firstElementChild.style.setProperty('width', '50px');  x.firstElementChild.style.setProperty('font-size', '30px');
+        var d = document.getElementsByClassName ('w-100')[15];
+        d.style.setProperty('display','none');
+
+
+        var x = document.getElementsByClassName ('ml-auto col wd-xxs text-right')[18];
+        x.style.setProperty('position','absolute');
+        x.style.setProperty('left', '120px');
+        x.style.setProperty('margin-top', '-30px'); x.firstElementChild.style.setProperty('width', '50px');  x.firstElementChild.style.setProperty('font-size', '30px');
+        var d = document.getElementsByClassName ('w-100')[18];
+        d.style.setProperty('display','none');
+
+
+        var x = document.getElementsByClassName ('ml-auto col wd-xxs text-right')[19];
+        x.style.setProperty('position','absolute');
+        x.style.setProperty('left', '350px');
+        x.style.setProperty('margin-top', '-30px'); x.firstElementChild.style.setProperty('width', '50px');  x.firstElementChild.style.setProperty('font-size', '30px');
+        var d = document.getElementsByClassName ('w-100')[19];
+        d.style.setProperty('display','none');
+
+
+        var x = document.getElementsByClassName ('ml-auto col wd-xxs text-right')[20];
+        x.style.setProperty('position','absolute');
+        x.style.setProperty('left', '120px');
+        x.style.setProperty('margin-top', '-30px'); x.firstElementChild.style.setProperty('width', '50px');  x.firstElementChild.style.setProperty('font-size', '30px');
+        var d = document.getElementsByClassName ('w-100')[20];
+        d.style.setProperty('display','none');
+
+
+        var x = document.getElementsByClassName ('ml-auto col wd-xxs text-right')[21];
+        x.style.setProperty('position','absolute');
+        x.style.setProperty('left', '350px');
+        x.style.setProperty('margin-top', '-30px'); x.firstElementChild.style.setProperty('width', '50px');  x.firstElementChild.style.setProperty('font-size', '30px');
+        var d = document.getElementsByClassName ('w-100')[21];
+        d.style.setProperty('display','none');
+
+        
+        """
+
+
+
+	    options = {
+		'crop-x': 80,
+        	'crop-y': 300,
+        	'quality': 100,
+        	'height': 830,
+        	'width': 610,                
+                'run-script': js,
+                'javascript-delay': 1000
+
+            }
+            imgkit.from_url(item['vs'], 'teamStats.png', options=options, config=config)		
+
             try:
 
-                r = requests.post("https://api.telegram.org/bot564873482:AAFhH9iE9Fyf1th-z-DSxznJBBgRSynPmvA/sendMessage",
+                r = requests.post("https://api.telegram.org//sendMessage",
                                   data={
                                       u"chat_id": self.chat_id,
                                       u"text": self.template.format(
@@ -91,11 +251,14 @@ select week from games where week = ? and team1_id = ? and team2_id = ? and send
 
                 js = r.json()
                 if u"ok" in js and js["ok"]:
-                    url = "https://api.telegram.org/bot564873482:AAFhH9iE9Fyf1th-z-DSxznJBBgRSynPmvA/sendPhoto";
+                    url = "https://api.telegram.org//sendPhoto";
                     files = {'photo': open('gameRecap.png', 'rb')}
                     data = {'chat_id' : self.chat_id}
                     requests.post(url, files=files, data=data)
-                    c.execute('update games set sended = 1 where week = ? and team1_id = ? and team2_id = ?',
+                    files = {'photo': open('teamStats.png', 'rb')}
+                    requests.post(url, files=files, data=data)
+
+		    c.execute('update games set sended = 1 where week = ? and team1_id = ? and team2_id = ?',
                               (item['week'], team1[1], team2[1]))
                     self.conn.commit()
 
