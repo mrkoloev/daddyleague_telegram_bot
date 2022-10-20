@@ -6,12 +6,13 @@ import sqlite3
 
 class SchedulesSpider(scrapy.Spider):
     name = "schedules"
+    league_name = 'mega'
 
     def start_requests(self):
         # import pdb; pdb.set_trace()
         self.conn = sqlite3.connect('daddyleagues.db')
         #url = 'http://old.daddyleagues.com/uflrus/schedules'
-        url = 'http://www.daddyleagues.com/uflrus/schedules'
+        url = f'http://www.daddyleagues.com/{league_name}/schedules'
 
         c = self.conn.cursor()
         #debug
