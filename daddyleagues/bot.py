@@ -21,6 +21,8 @@ import sqlite3
 key = ''
 #273770462
 
+league_name = 'mega'
+
 app = telebot.TeleBot(key)
 
 def getWeek(cmd, url, options):
@@ -44,7 +46,7 @@ def week(message):
 @app.route('/week ?(\\d+)')
 def week_num(message, cmd):
     chat_dest = message['chat']['id']
-    url = 'http://www.daddyleagues.com/uflrus/schedules'
+    url = f'http://www.daddyleagues.com/{league_name}/schedules'
     msg = "Starting: week " + cmd
     app.send_message(chat_dest, msg)
     options = {
@@ -63,7 +65,7 @@ def week_num(message, cmd):
 @app.route('/res')
 def res(message):
     chat_dest = message['chat']['id']
-    url = 'http://www.daddyleagues.com/uflrus/gamerecap/548877212'
+    url = f'http://www.daddyleagues.com/{league_name}/gamerecap/548877212'
     msg = "Starting: result 1.312"
     app.send_message(chat_dest, msg)
     options = {
